@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Snapshots</h2>
+<form action="/snapshot" method="post">
+    <input type="text" name="message" placeholder="Commit message" required>
+    <button type="submit">Create Snapshot</button>
+</form>
+<ul>
+    {% for item in history %}
+    <li>
+        {{ item.timestamp }} - {{ item.message }}
+        <form action="/restore/{{ item.id }}" method="post" style="display:inline;">
+            <button type="submit">Restore</button>
+        </form>
+        <a href="/diff/{{ item.id }}">Diff</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
